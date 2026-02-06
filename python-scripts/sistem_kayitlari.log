@@ -1,0 +1,58 @@
+----------------------------------------
+RAPOR TARIHI: 2026-02-06 06:11:01
+----------------------------------------
+Isletim Sistemi: Linux 6.8.0-71-generic
+Makine Adi (Hostname): devops
+Islemci Mimarisi: x86_64
+CPU Cekirdek Sayisi: 2
+----------------------------------------
+BELLEK (RAM) DURUMU:
+               total        used        free      shared  buff/cache   available
+Mem:           1.9Gi       329Mi       1.3Gi       1.1Mi       443Mi       1.6Gi
+----------------------------------------
+Rapor Tamamlandi.
+----------------------------------------
+RAPOR TARIHI: 2026-02-06 06:12:01
+----------------------------------------
+Isletim Sistemi: Linux 6.8.0-71-generic
+Makine Adi (Hostname): devops
+Islemci Mimarisi: x86_64
+CPU Cekirdek Sayisi: 2
+----------------------------------------
+BELLEK (RAM) DURUMU:
+               total        used        free      shared  buff/cache   available
+Mem:           1.9Gi       329Mi       1.3Gi       1.1Mi       443Mi       1.6Gi
+----------------------------------------
+Rapor Tamamlandi.
+----------------------------------------
+RAPOR TARIHI: 2026-02-06 06:13:01
+----------------------------------------
+Isletim Sistemi: Linux 6.8.0-71-generic
+Makine Adi (Hostname): devops
+Islemci Mimarisi: x86_64
+CPU Cekirdek Sayisi: 2
+----------------------------------------
+BELLEK (RAM) DURUMU:
+               total        used        free      shared  buff/cache   available
+Mem:           1.9Gi       348Mi       1.3Gi       1.1Mi       443Mi       1.6Gi
+----------------------------------------
+Rapor Tamamlandi.
+/usr/bin/python3: can't open file '/home/cihan/devops-journey/python-scripts/monitor.py': [Errno 2] No such file or directory
+----------------------------------------
+RAPOR TARIHI: 2026-02-06 06:15:01
+----------------------------------------
+Sistem: Linux 6.8.0-71-generic
+CPU Cekirdek: 2
+----------------------------------------
+Kullanilabilir RAM: 1621 MB
+DURUM: YESIL (Normal). Sistem saglikli calisiyor.
+----------------------------------------
+----------------------------------------
+RAPOR TARIHI: 2026-02-06 06:16:01
+----------------------------------------
+Sistem: Linux 6.8.0-71-generic
+CPU Cekirdek: 2
+----------------------------------------
+Kullanilabilir RAM: 1626 MB
+DURUM: YESIL (Normal). Sistem saglikli calisiyor.
+----------------------------------------

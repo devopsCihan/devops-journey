@@ -8,33 +8,42 @@ def sistem_bilgisi():
     print(f"RAPOR TARIHI: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
     print("-" * 40)
 
-    # 1. Temel İşletim Sistemi Bilgileri
-    print(f"Isletim Sistemi: {platform.system()} {platform.release()}")
-    print(f"Makine Adi (Hostname): {platform.node()}")
-    print(f"Islemci Mimarisi: {platform.machine()}")
+    # 1. Isletim Sistemi
+    print(f"Sistem: {platform.system()} {platform.release()}")
     
-    # 2. CPU Bilgisi (Cekirdek Sayisi)
+    # 2. CPU
     try:
-        cpu_sayisi = os.cpu_count()
-        print(f"CPU Cekirdek Sayisi: {cpu_sayisi}")
+        print(f"CPU Cekirdek: {os.cpu_count()}")
     except:
-        print("CPU bilgisi alinamadi.")
+        pass
 
-    # 3. RAM Bilgisi (Linux komutu çalıştırarak)
+    # 3. AKILLI RAM KONTROLU (Logic Kismi)
     print("-" * 40)
-    print("BELLEK (RAM) DURUMU:")
     try:
-        # Python içinden Linux terminal komutu (free -h) çalıştırıyoruz
-        sonuc = subprocess.check_output("free -h", shell=True).decode("utf-8")
-        # Sadece başlık ve ilk satırı yazdıralım
-        satirlar = sonuc.split("\n")
-        print(satirlar[0]) # Başlıklar (total used free...)
-        print(satirlar[1]) # Mem satırı
-    except:
-        print("RAM bilgisi okunamadi.")
+        # 'free -m' komutu RAM'i Megabyte (sayi) olarak verir. Islem yapmasi kolaydir.
+        ram_cikti = subprocess.check_output("free -m", shell=True).decode("utf-8")
+        satirlar = ram_cikti.split("\n")
+        
+        # Verileri ayiklayalim (Total, Used, Free, ..., Available)
+        # Linux 'free' ciktisinda son sutun genellikle "Available" (Kullanilabilir) olandir.
+        degerler = satirlar[1].split()
+        bos_ram = int(degerler[-1]) # En sondaki degeri al ve tamsayiya cevir
+        
+        print(f"Kullanilabilir RAM: {bos_ram} MB")
+        
+        # --- KARAR MEKANIZMASI (IF/ELSE) ---
+        LIMIT = 500 # Alarm limiti (MB)
+        
+        if bos_ram < LIMIT:
+            print(f"!!! ALARM !!! RAM Kritik Seviyenin Altinda ({bos_ram} MB < {LIMIT} MB)")
+            print("ONERI: Gereksiz servisleri kapatin veya sunucuyu yeniden baslatin.")
+        else:
+            print(f"DURUM: YESIL (Normal). Sistem saglikli calisiyor.")
+            
+    except Exception as e:
+        print(f"RAM bilgisi okunamadi: {e}")
         
     print("-" * 40)
-    print("Rapor Tamamlandi.")
 
 if __name__ == "__main__":
     sistem_bilgisi()
