@@ -1,49 +1,60 @@
 import platform
 import os
 import subprocess
+import shutil
 from datetime import datetime
 
 def sistem_bilgisi():
-    print("-" * 40)
-    print(f"RAPOR TARIHI: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
-    print("-" * 40)
+    zaman = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+    print("-" * 50)
+    print(f"RAPOR TARIHI: {zaman}")
+    print("-" * 50)
 
     # 1. Isletim Sistemi
     print(f"Sistem: {platform.system()} {platform.release()}")
     
-    # 2. CPU
+    # 2. RAM KONTROLU
+    print("-" * 20 + " BELLEK (RAM) " + "-" * 20)
     try:
-        print(f"CPU Cekirdek: {os.cpu_count()}")
-    except:
-        pass
-
-    # 3. AKILLI RAM KONTROLU (Logic Kismi)
-    print("-" * 40)
-    try:
-        # 'free -m' komutu RAM'i Megabyte (sayi) olarak verir. Islem yapmasi kolaydir.
         ram_cikti = subprocess.check_output("free -m", shell=True).decode("utf-8")
         satirlar = ram_cikti.split("\n")
-        
-        # Verileri ayiklayalim (Total, Used, Free, ..., Available)
-        # Linux 'free' ciktisinda son sutun genellikle "Available" (Kullanilabilir) olandir.
         degerler = satirlar[1].split()
-        bos_ram = int(degerler[-1]) # En sondaki degeri al ve tamsayiya cevir
+        bos_ram = int(degerler[-1]) 
         
-        print(f"Kullanilabilir RAM: {bos_ram} MB")
-        
-        # --- KARAR MEKANIZMASI (IF/ELSE) ---
-        LIMIT = 500 # Alarm limiti (MB)
-        
-        if bos_ram < LIMIT:
-            print(f"!!! ALARM !!! RAM Kritik Seviyenin Altinda ({bos_ram} MB < {LIMIT} MB)")
-            print("ONERI: Gereksiz servisleri kapatin veya sunucuyu yeniden baslatin.")
+        RAM_LIMIT = 500
+        if bos_ram < RAM_LIMIT:
+            print(f"!!! ALARM !!! RAM Kritik Seviyenin Altinda ({bos_ram} MB)")
         else:
-            print(f"DURUM: YESIL (Normal). Sistem saglikli calisiyor.")
+            print(f"DURUM: RAM Normal ({bos_ram} MB bos).")
+    except:
+        print("RAM bilgisi alinamadi.")
+
+    # 3. DISK KONTROLU (YENI OZELLIK)
+    print("-" * 20 + " DISK ALANI " + "-" * 20)
+    try:
+        # Kök dizini (/) kontrol et
+        disk = shutil.disk_usage("/")
+        
+        # Byte'ı Gigabyte'a (GB) cevir
+        toplam_gb = disk.total / (1024**3)
+        bos_gb = disk.free / (1024**3)
+        kullanilan_gb = disk.used / (1024**3)
+        doluluk_orani = (disk.used / disk.total) * 100
+        
+        print(f"Toplam: {toplam_gb:.2f} GB | Kullanilan: {kullanilan_gb:.2f} GB | Bos: {bos_gb:.2f} GB")
+        print(f"Doluluk Orani: %{doluluk_orani:.2f}")
+
+        DISK_LIMIT = 90.0 # Yuzde 90
+        
+        if doluluk_orani > DISK_LIMIT:
+            print(f"!!! KRITIK UYARI !!! Disk doluyor! (%{doluluk_orani:.2f})")
+        else:
+            print(f"DURUM: Disk saglikli.")
             
     except Exception as e:
-        print(f"RAM bilgisi okunamadi: {e}")
-        
-    print("-" * 40)
+        print(f"Disk bilgisi alinamadi: {e}")
+
+    print("-" * 50)
 
 if __name__ == "__main__":
     sistem_bilgisi()
