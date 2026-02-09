@@ -58,3 +58,16 @@ def sistem_bilgisi():
 
 if __name__ == "__main__":
     sistem_bilgisi()
+
+
+# ... Disk kodlarının bittiği yer ...
+
+    # 4. UPTIME (CALISMA SURESI) KONTROLU
+    print("-" * 20 + " CALISMA SURESI " + "-" * 20)
+    try:
+        uptime_suresi = subprocess.check_output("uptime -p", shell=True).decode("utf-8").strip()
+        print(f"Sistem {uptime_suresi} suredir ayakta.")
+    except Exception as e:
+        print(f"Uptime bilgisi alinamadi: {e}")
+
+    print("-" * 50)
