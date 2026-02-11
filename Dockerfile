@@ -1,7 +1,7 @@
 # 1. TEMEL (Base Image): Bize Python kurulu, hafif bir Linux ver.
 # "slim" versiyonu gereksiz dosyalardan arındırılmış, küçük boyuttur.
 FROM python:3.9-slim
-
+RUN apt-get update && apt-get install -y procps
 # 2. ÇALIŞMA ALANI (Workdir): Konteynerin içinde '/app' diye bir klasör aç.
 # Bundan sonraki her şeyi orada yap.
 WORKDIR /app
