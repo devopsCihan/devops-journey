@@ -1,0 +1,12 @@
+version: '3'
+services:
+  websitemiz:
+    image: nginx
+    ports:
+      - "80:80"
+    volumes:
+      - ./index.html:/usr/share/nginx/html/index.html
+
+  ajan-007:
+    image: devopscihan/devops-ajan:v3
+    restart: always
