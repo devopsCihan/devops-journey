@@ -1,5 +1,6 @@
-FROM alpine:latest
+FROM python:3.9-slim
 WORKDIR /app
-COPY ajan.sh .
-RUN chmod +x ajan.sh
-CMD ["./ajan.sh"]
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+COPY app.py .
+CMD ["python", "-u", "app.py"]

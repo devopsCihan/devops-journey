@@ -8,5 +8,22 @@ services:
       - ./index.html:/usr/share/nginx/html/index.html
 
   ajan-007:
-    image: devopscihan/devops-ajan:v3
+    build: .
     restart: always
+    depends_on:
+      - veritabani
+
+  veritabani:
+    image: postgres:15
+    restart: always
+    environment:
+      POSTGRES_USER: devops
+      POSTGRES_PASSWORD: gizlisifre123
+      POSTGRES_DB: raporlar
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+volumes:
+  pgdata:
